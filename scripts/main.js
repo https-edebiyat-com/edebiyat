@@ -260,11 +260,11 @@ function translation(status, color_name) {
     change_color(color_name)
 
     if (true_status == true) {
-        var audio = new Audio('../sounds/victory.mp3');
+        var audio = new Audio('./sounds/victory.mp3');
         audio.play();
     }
     else {
-        var audio = new Audio('../sounds/lose.mp3');
+        var audio = new Audio('./sounds/lose.mp3');
         audio.play();
     }
 
