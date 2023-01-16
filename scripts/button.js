@@ -183,12 +183,6 @@ var contents = [
 ];
 //#endregion
 
-//when site is opened
-window.onload = function () {
-    dataChange();
-};
-
-//variable of sayacxD
 var i = 0;
 
 // change the question
@@ -210,99 +204,48 @@ function dataChange() {
 
 }
 
-//#region Element Variables & Button Click Events
+function Kronometre(Id, Saniye) {
 
-const a_sure = document.getElementById("a");
-const b_sure = document.getElementById("b");
-const c_sure = document.getElementById("c");
+    this.gercekSaniye = Saniye || 60;
+    this.saniye = Saniye || 60;
+    this.interval;
 
-a_sure.addEventListener("click", aClick);
-b_sure.addEventListener("click", bClick);
-c_sure.addEventListener("click", cClick);
+    this.baslat = function () {
+        this.sayacElem = document.getElementById(Id);
+        if (!this.interval) {
+            this.sayac();
+            this.interval = setInterval(this.sayac.bind(this), 950);
+        }
+    };
 
-//#endregion
+    this.sayac = function () {
 
-function change_color(color) {
+        var toplamSaniye = this.saniye;
+        var saat = parseInt(toplamSaniye / 3600) % 24;
+        var dakika = parseInt(toplamSaniye / 60) % 60;
+        var saniye = toplamSaniye % 60;
 
-    var css = '.container .card:hover .face.face1{ background: ' + color + '; transform: translateY(0); background-size: 400% 400%; animation: gradient 1s ease infinite; }';
-    var style = document.createElement('style');
+        if( saniye >= 0){
+            this.sayacElem.innerHTML = (dakika < 10 ? "0" + dakika : dakika) + ":" + (saniye < 10 ? "0" + saniye : saniye);
+        }
+        else{
+            this.sayacElem.innerHTML = "Süre doldu!";
+        }
 
-    if (style.styleSheet) {
-        style.styleSheet.cssText = css;
-    } else {
-        style.appendChild(document.createTextNode(css));
-    }
-
-    document.getElementsByTagName('head')[0].appendChild(style);
-}
-
-//animations of translation
-function translation(status, color_name) {
-
-    //true or false
-    true_status = status;
-
-    //green or red
-    change_color(color_name)
-
-    if (true_status == true) {
-        var audio = new Audio('./sounds/victory.mp3');
-        audio.play();
-    }
-    else {
-        var audio = new Audio('./sounds/lose.mp3');
-        audio.play();
-    }
-
-    //wait 1 sec.
-    setTimeout(function aFun() {
-
-        //change question
-        dataChange();
-
-        change_color('#00367e');
-
-        //enter default status
-        true_status = false;
-    },
-        3000);
-}
-
-//default true status
-var true_status = false;
-
-//when i click a
-function aClick() {
-    if (true_status != true) {
-        if (i == 2 || i == 5 || i == 9) {
-            translation(true, "linear-gradient(90deg, #fdcb6e 0%, #a29bfe 20%, #0984e3 40%, #e84393 60%, #d63031 80%, green 100%)");
+        if (this.saniye <= 0 && i != 11) {
+            alert("BİLADER 4 DAKİKADA 10 SORU ÇÖZEMİYORSUN ATATÜRK SENİ GÖRSEYDİ UTANIRDI ULAN 4 DAKİKADIR EKRANA BAKIYORSUN UTANMIYORSUN BİR DE KALK DEFOL GİT YIKIIIIIIIILLLLLLLLLLLLLLLLLLLLLLLLLLLL!!!");
+            window.close();
         }
         else {
-            translation(false, "red");
+            this.saniye -= 1;
         }
-    }
-}
 
-//when i click b
-function bClick() {
-    if (true_status != true) {
-        if (i == 3 || i == 7 || i == 8) {
-            translation(true, "linear-gradient(90deg, #fdcb6e 0%, #a29bfe 20%, #0984e3 40%, #e84393 60%, #d63031 80%, green 100%)");
-        }
-        else {
-            translation(false, "red");
-        }
-    }
+    };
 }
+var Kronometre = new Kronometre('sayac');
 
-//when i click c
-function cClick() {
-    if (true_status != true) {
-        if (i == 1 || i == 4 || i == 6 || i == 10) {
-            translation(true, "linear-gradient(90deg, #fdcb6e 0%, #a29bfe 20%, #0984e3 40%, #e84393 60%, #d63031 80%, green 100%)");
-        }
-        else {
-            translation(false, "red");
-        }
-    }
-}
+window.onload = function () {
+    Kronometre.baslat();
+    dataChange();
+};
+

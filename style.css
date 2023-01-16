@@ -142,3 +142,14 @@ body {
     color: aliceblue;
     opacity: 1;
 }
+
+#sayac{
+    position: relative;
+
+    top: 250px;
+    right: 500px;
+    
+	color: aliceblue;
+    font-size: 25px;
+	
+ }

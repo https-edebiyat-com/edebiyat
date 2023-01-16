@@ -6,6 +6,7 @@
     <title>Şiir Ünitesi Testi</title>
     <link rel="stylesheet" href="style.css">
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/button.js"></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="question-part">
+                            <div onclick="Kronometre.baslat()" class="question-part">
                                 <h3 id="question"></h3>
                             </div>
                         </td>
@@ -60,7 +61,7 @@
             </div>
 
             <div class="card">
-                <div id="face-b" class="face face1">
+                <div id="face-c" class="face face1">
                     <div class="content">
                         <img src="./img/c.png">
                         <h3 id="answer-c"></h3>
@@ -74,7 +75,13 @@
                 </div>
             </div>
 
+
         </div>
+
+        <h3>
+            <div id="sayac">Sa</div>
+        </h3>
+
     </body>
 
 
